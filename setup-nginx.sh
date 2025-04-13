@@ -22,4 +22,3 @@ echo "Testing Nginx configuration..." | tee -a $LOG_FILE
 sudo nginx -t >> $LOG_FILE 2>&1
 
 echo "Nginx setup complete." | tee -a $LOG_FILE
-
