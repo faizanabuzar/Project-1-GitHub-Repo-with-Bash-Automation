@@ -2,20 +2,24 @@
 # Log file
 LOG_FILE="log.txt"
 
-echo "Starting setup..." | tee -a $LOG_FILE
+echo "Starting Nginx setup..." | tee -a $LOG_FILE
 
-# Install Apache (Ubuntu example)
-if ! command -v apache2 >/dev/null; then
-    echo "Installing Apache..." | tee -a $LOG_FILE
-    sudo apt update && sudo apt install -y apache2 >> $LOG_FILE 2>&1
+# Install Nginx (Ubuntu example)
+if ! command -v nginx >/dev/null; then
+    echo "Installing Nginx..." | tee -a $LOG_FILE
+    sudo apt update && sudo apt install -y nginx >> $LOG_FILE 2>&1
 else
-    echo "Apache already installed." | tee -a $LOG_FILE
+    echo "Nginx already installed." | tee -a $LOG_FILE
 fi
 
-# Configure Apache (Example: Enable mod_rewrite)
-echo "Configuring Apache..." | tee -a $LOG_FILE
-sudo a2enmod rewrite >> $LOG_FILE 2>&1
-sudo systemctl restart apache2 >> $LOG_FILE 2>&1
+# Start and enable Nginx
+echo "Starting and enabling Nginx..." | tee -a $LOG_FILE
+sudo systemctl start nginx >> $LOG_FILE 2>&1
+sudo systemctl enable nginx >> $LOG_FILE 2>&1
 
-echo "Setup complete." | tee -a $LOG_FILE
+# Test Nginx configuration
+echo "Testing Nginx configuration..." | tee -a $LOG_FILE
+sudo nginx -t >> $LOG_FILE 2>&1
+
+echo "Nginx setup complete." | tee -a $LOG_FILE
 
